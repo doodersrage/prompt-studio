@@ -1,0 +1,50 @@
+# Daily: when npm has a newer prompt-studio-core, install it, regenerate the route wrappers,
+# build, and open a pull request. (A PR opened by GITHUB_TOKEN does not start other workflows;
+# this job's own build is the check.)
+name: Update prompt-studio-core
+
+on:
+  schedule:
+    - cron: '17 6 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version: '22'
+          cache: npm
+      - id: version
+        run: |
+          latest=$(npm view prompt-studio-core version)
+          current=$(node -p "require('./package.json').dependencies['prompt-studio-core'].replace(/^[^0-9]*/, '')")
+          echo "latest=$latest" >> "$GITHUB_OUTPUT"
+          if [ "$latest" != "$current" ]; then echo "update=true" >> "$GITHUB_OUTPUT"; fi
+      - if: steps.version.outputs.update == 'true'
+        run: |
+          npm install prompt-studio-core@^${{ steps.version.outputs.latest }} --save --no-audit --no-fund
+          npm run sync-routes
+          npm run build
+      - if: steps.version.outputs.update == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          VERSION: ${{ steps.version.outputs.latest }}
+        run: |
+          branch="core-$VERSION"
+          if git ls-remote --exit-code origin "refs/heads/$branch" >/dev/null; then
+            echo "$branch already open"; exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git checkout -b "$branch"
+          git add -A
+          git commit -m "prompt-studio-core $VERSION"
+          git push origin "$branch"
+          gh pr create --title "prompt-studio-core $VERSION" --body "Updates prompt-studio-core to $VERSION and regenerates the route wrappers (npm run sync-routes). Built in this workflow before opening."
