@@ -1,0 +1,33 @@
+{
+  "name": "prompt-studio",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Prompt, image, video and audio tools for ComfyUI.",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/doodersrage/prompt-studio.git"
+  },
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "dev": "next dev -p 47833",
+    "build": "next build",
+    "start": "next start -p 47833",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "prompt-studio-core": "^2.3.5",
+    "next": "^16.3.8",
+    "react": "^19.2.8",
+    "react-dom": "^19.2.8",
+    "sharp": "^0.34.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.9.3",
+    "@types/node": "^22.20.1",
+    "@types/react": "^19.2.17",
+    "@types/react-dom": "^19.2.3"
+  }
+}

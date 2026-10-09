@@ -1,0 +1,3 @@
+/* The shared styles, and the shared components for Tailwind to scan (they live in the core package). */
+@import 'prompt-studio-core/src/app/globals.css';
+@source '../../node_modules/prompt-studio-core/src';
