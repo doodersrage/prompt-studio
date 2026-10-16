@@ -5,3 +5,8 @@ next-env.d.ts
 *.tsbuildinfo
 .env*.local
 .prompt-studio-data/
+
+# Playwright
+/e2e/.auth/
+/test-results/
+/playwright-report/

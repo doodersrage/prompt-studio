@@ -1,0 +1,30 @@
+{
+  "id": "queue-rewrite-denoise",
+  "label": "Denoise rewrite",
+  "version": "1.1.0",
+  "enabled": true,
+  "nav": [
+    {
+      "href": "/plugins/queue-rewrite-denoise",
+      "label": "Denoise rewrite",
+      "description": "Example plugin that softens denoise on queue"
+    }
+  ],
+  "queueHooks": {
+    "url": "/api/plugin-hooks/denoise-rewrite",
+    "events": ["queue-preflight", "queue-post"],
+    "privileges": ["rewrite-prompt", "rewrite-params", "rewrite-workflow"]
+  },
+  "tools": [
+    {
+      "id": "overview",
+      "title": "Denoise rewrite",
+      "route": "/plugins/queue-rewrite-denoise"
+    },
+    {
+      "id": "iframe-demo",
+      "title": "Iframe host demo",
+      "iframeUrl": "/plugin-examples/hello-iframe.html"
+    }
+  ]
+}
