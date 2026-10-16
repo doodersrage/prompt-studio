@@ -31,6 +31,8 @@ jobs:
         run: |
           npm install prompt-studio-core@^${{ steps.version.outputs.latest }} --save --no-audit --no-fund
           npm run sync-routes
+          npm run typecheck
+          npm test
           npm run build
       - if: steps.version.outputs.update == 'true'
         env:

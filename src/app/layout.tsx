@@ -1,6 +1,6 @@
 import type { Metadata, Viewport } from 'next';
 import RootDocument from 'prompt-studio-core/src/components/RootDocument';
-import PromptStudioFeatures from 'prompt-studio-core/src/components/PromptStudioFeatures';
+import PromptStudioFeatures from '@/components/PromptStudioFeatures';
 import { PRODUCT_NAME, PRODUCT_TAGLINE } from 'prompt-studio-core/src/lib/brand';
 import { ROOT_VIEWPORT, rootMetadata } from 'prompt-studio-core/src/lib/root-metadata';
 import './globals.css';
